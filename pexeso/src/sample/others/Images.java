@@ -4,16 +4,18 @@ import javafx.scene.image.Image;
 
 public class Images {
 
-    private final Image imgBlack;
-    private final Image menuBackground;
-    private final Image menuBackground2;
-    private final Image menuBackground3;
-    private final Image playImage;
-    private final Image exitImage;
-    private final Image statsImage;
-    private final Image backImage;
-    private final Image saveImage;
-    private final Image resetImage;
+    private static final int NUMBER_OF_IMAGES = 15; //number of cards + 1
+
+    private Image imgBlack;
+    private Image menuBackground;
+    private Image menuBackground2;
+    private Image menuBackground3;
+    private Image playImage;
+    private Image exitImage;
+    private Image statsImage;
+    private Image backImage;
+    private Image saveImage;
+    private Image resetImage;
     private Image[] arrOfImages;
 
     public Images(){
@@ -24,14 +26,13 @@ public class Images {
         exitImage = new Image("res/img/menu/exit.png");
         playImage = new Image("res/img/menu/play.png");
         menuBackground = new Image("res/img/menu/background.jpg");
-        menuBackground2 = new Image("res/img/menu/background2.jpg");
+        menuBackground2 = new Image("res/img/menu/background2_670x650.jpg");
         menuBackground3 = new Image("res/img/menu/background3.jpg");
         imgBlack = new Image("res/img/cards/black.png");
 
-        int numberOfImage = 8;
-        arrOfImages = new Image[numberOfImage];
+        arrOfImages = new Image[NUMBER_OF_IMAGES];
 
-        for(int i = 0; i < numberOfImage; i++){
+        for(int i = 0; i < NUMBER_OF_IMAGES; i++){
             arrOfImages[i] = new Image("res/img/cards/card" + i + ".png");
         }
     }

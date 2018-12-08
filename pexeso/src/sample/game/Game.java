@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 
 public class Game {
 
+    private int WIDTH = 670;
+    private int HEIGHT = 650;
+
     private Stage mainWindow;
     private Stage gameWindow;
     private Group root;
@@ -27,15 +30,22 @@ public class Game {
     private Music _music = new Music();
     private MediaPlayer mediaPlayer;
 
-    public Game(Stage stage){
+    private int numberOfPairs;
+
+    public Game(Stage stage, int numberOfPairs){
+        this.numberOfPairs = numberOfPairs;
         mainWindow = stage;
         gameWindow = new Stage();
-        _board = new Board(mainWindow, gameWindow);
+        _board = new Board(mainWindow, gameWindow, numberOfPairs);
+
         gameWindow.setTitle("Pexeso - Game");
         root = new Group();
         Scene gameScene = new Scene(root);
         gameWindow.setScene(gameScene);
-        Canvas canvas2 = new Canvas(800, 800);
+        if(numberOfPairs > 8){
+            WIDTH *= 1.7;
+        }
+        Canvas canvas2 = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas2);
 
         //code
@@ -45,11 +55,15 @@ public class Game {
 
         gameWindow.show();
     }
+
     private void setBackground(){
         Images _images = new Images();
         ImageView iwBackground = new ImageView(_images.getMenuBackground2());
+        iwBackground.setFitWidth(WIDTH);
+        iwBackground.setFitHeight(HEIGHT);
         root.getChildren().add(iwBackground);
     }
+
 
     private void setBoard() {
 
@@ -61,16 +75,25 @@ public class Game {
             c.getBut().setLayoutY(posY);
             root.getChildren().add(c.getBut());
             posX += 150;
-            if (posX > 500) {
-                posY += 150;
-                posX = 50;
+            if(numberOfPairs > 8){
+                if (posX > 950) {
+                    posY += 150;
+                    posX = 50;
+                }
+            }
+            else {
+                if (posX > 500) {
+                    posY += 150;
+                    posX = 50;
+                }
             }
         }
+
     }
 
     private void setBackBut(){
         ImageView iw = new ImageView(_images.getBackImage());
-        ButtonClass _button = new ButtonClass(0, 650, 0.5, 1.0, iw);
+        ButtonClass _button = new ButtonClass(-50, 0, 0.5, 0.6, iw);
         root.getChildren().add(_button.getButton());
 
         _button.getButton().setOnAction(event1 -> {

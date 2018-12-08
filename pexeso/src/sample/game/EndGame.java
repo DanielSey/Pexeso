@@ -23,24 +23,22 @@ import java.io.IOException;
 
 public class EndGame {
 
-    private Group root;
+    private static final int WIDTH = 300;
+    private static final int HEIGHT = 100;
 
+    private Group root;
     private Stage mainWindow;
     private Stage gameWindow;
     private Stage endWindow;
-
     private Images _images = new Images();
-
-    private ButtonClass _saveBut = null;
-
+    private ButtonClass _saveBut;
     private TextField textField;
-
     private Music _music = new Music();
     private MediaPlayer mediaPlayer;
-
     private long endTime;
+    private int pairs;
 
-    public EndGame(Stage stage, Stage stage2, long endTime){
+    public EndGame(Stage stage, Stage stage2, long endTime, int pairs){
         gameWindow = stage2;
         mainWindow = stage;
         endWindow = new Stage();
@@ -48,11 +46,12 @@ public class EndGame {
         root = new Group();
         Scene gameScene = new Scene(root);
         endWindow.setScene(gameScene);
-        Canvas canvas2 = new Canvas(300, 100);
+        Canvas canvas2 = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas2);
 
         //code
         this.endTime = endTime;
+        this.pairs = pairs;
         setTextField();
         setSubmitBut();
         setText();
@@ -87,8 +86,8 @@ public class EndGame {
             mediaPlayer = new MediaPlayer(_music.getClick());
             mediaPlayer.play();
 
-            if(textField.getText().length() <= 2){
-                CheckBack _ckBack = new CheckBack(Alert.AlertType.INFORMATION,"You must enter at least 3 characters!", ButtonType.OK);
+            if(textField.getText().length() <= 2 || textField.getText().length() >= 6){
+                CheckBack _ckBack = new CheckBack(Alert.AlertType.INFORMATION,"You must enter at least 3 characters! Maximum is 5 chars.", ButtonType.OK);
                 _ckBack.getAlert().showAndWait();
             }
             else {
@@ -98,7 +97,7 @@ public class EndGame {
                 try {
                     BufferedWriter output = new BufferedWriter(new FileWriter(file, true));
                     output.newLine();
-                    output.append("Name: " + name + ", time: " + endTime + "sec");
+                    output.append(name + "              " + endTime + "              " + pairs); //2x7 |_|
                     output.close();
                 } catch (IOException ex1) {
                     System.out.printf("ERROR writing score to file: %s\n", ex1);

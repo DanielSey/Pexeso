@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class Board {
 
-    private static final int numberOfPairs = 8;
+    private int numberOfPairs;
 
     private Music _music = new Music();
     private ArrayList<Card> arrLiCard = new ArrayList<Card>();
@@ -35,7 +35,8 @@ public class Board {
     private long startTime;
     private long endTime;
 
-    public Board(Stage stage, Stage stage2){
+    public Board(Stage stage, Stage stage2, int numberOfPairs){
+        this.numberOfPairs = numberOfPairs;
         startTime = System.currentTimeMillis();
         gameWindow = stage2;
         mainWindow = stage;
@@ -87,7 +88,6 @@ public class Board {
                         MediaPlayer mediaPlayer2 = new MediaPlayer(_music.getApplause());
                         mediaPlayer2.play();
 
-                        //System.out.println("trefa!");
                         count = 0;
                         arrLiCard.remove(_card2);
                         arrLiCard.remove(_card1);
@@ -95,7 +95,6 @@ public class Board {
                         _card2 = null;
                     }
                     else {
-                        //System.out.println("vedle!");
                         count = -1;
                     }
                 }
@@ -103,11 +102,10 @@ public class Board {
                     MediaPlayer mediaPlayer = new MediaPlayer(_music.getEndApplause());
                     mediaPlayer.play();
 
-                    //System.out.println("Konec!");
 
                     endTime = System.currentTimeMillis() - startTime;
                     endTime = endTime / 1000;
-                    EndGame _endGame = new EndGame(mainWindow, gameWindow, endTime);
+                    new EndGame(mainWindow, gameWindow, endTime, numberOfPairs);
                 }
             }
         };
@@ -129,11 +127,12 @@ public class Board {
     private void generatePairs(){
         Card card1;
         Card card2;
+        int bounds = numberOfPairs * 2;
         Random rnd = new Random();
         int a;
         for(int i = 0; i < numberOfPairs; i++){
             while (true) {
-                a = rnd.nextInt(16);
+                a = rnd.nextInt(bounds);
                 if (isFree(a)) {
                     //card1 = new Card(a, i); //just testing
                     card1 = new Card();
@@ -145,7 +144,7 @@ public class Board {
                 }
             }
             while (true) {
-                a = rnd.nextInt(16);
+                a = rnd.nextInt(bounds);
                 if (isFree(a)) {
                     //card2 = new Card(a, i); //just testing
                     card2 = new Card();

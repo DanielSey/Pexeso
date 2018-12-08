@@ -1,1 +1,16 @@
-﻿Name       Time
+﻿Name       Time(sec)  Pairs
+kkk              6              2
+daan              14              5
+nikdo              9              2
+milan              45              8
+bedzs              42              8
+já1              32              8
+kjhk              53              8
+jjj              37              8
+dfds              59              8
+aaaa              29              8
+ddh              33              7
+rrr              40              8
+lll              35              8
+llll              27              8
+dan              99              13

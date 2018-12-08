@@ -17,9 +17,12 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Stats {
+
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 500;
 
     private Stage statsWindow;
     private Group root;
@@ -37,7 +40,7 @@ public class Stats {
         root = new Group();
         Scene statsScene = new Scene(root);
         statsWindow.setScene(statsScene);
-        Canvas canvas3 = new Canvas(500, 500);
+        Canvas canvas3 = new Canvas(WIDTH, HEIGHT);
         root.getChildren().add(canvas3);
 
         //code
@@ -95,17 +98,17 @@ public class Stats {
         File file = new File("score.txt");
         try {
             PrintWriter writer = new PrintWriter(file);
-            writer.print("Name       Time"); //7x
+            writer.print("Name       Time(sec)  Pairs"); //7x |_|
             writer.close();
         } catch (IOException ex1) {
-            System.out.printf("ERROR writing score to file: %s\n", ex1);
+            System.out.printf("ERROR resetting score: %s\n", ex1);
         }
     }
 
     private void loadListView(){
         listView = new ListView<>();
-        for(int i = 0; i < arrLiScore.size(); i++) {
-            listView.getItems().add(arrLiScore.get(i));
+        for (String s : arrLiScore) {
+            listView.getItems().add(s);
         }
 
         listView.setLayoutX(50);
@@ -122,7 +125,6 @@ public class Stats {
 
             String line;
             while ((line = reader.readLine()) != null) {
-                //System.out.println(line);
                 arrLiScore.add(line);
             }
         } catch (IOException e) {

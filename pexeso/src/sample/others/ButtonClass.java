@@ -2,7 +2,6 @@ package sample.others;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.MediaPlayer;
 
 public class ButtonClass {
 
